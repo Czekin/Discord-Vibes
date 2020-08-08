@@ -6,6 +6,6 @@ module.exports = {
     botNotConnected: `I'm not in voice channel!`
 }
 
-module.exports.noVoiceChannelConnection = (msg) => {
+module.exports.alreadyPlaying = (msg) => {
     return `I'm already playing in **${msg.guild.me.voice.channel.name}**...`;
 }

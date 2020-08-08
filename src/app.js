@@ -136,7 +136,7 @@ bot.on('message', async (msg) => {
         if(!msg.member.voice.channel) return msg.channel.send(messages.userNotConnected);
         if(msg.guild.me.voice.channel){
             if(msg.member.voice.channel.id !== msg.guild.me.voice.channel.id) return msg.channel.send(messages.userNotInMyChannel);
-            if(bot.playing == true) return msg.channel.send(messages.alreadyPlaying);
+            if(bot.playing == true) return msg.channel.send(messages.alreadyPlaying(msg));
             else{
                 radio(vibeURLs);
             }
@@ -149,7 +149,7 @@ bot.on('message', async (msg) => {
         if(!msg.member.voice.channel) return msg.channel.send(messages.userNotConnected);
         if(msg.guild.me.voice.channel){
             if(msg.member.voice.channel.id !== msg.guild.me.voice.channel.id) return msg.channel.send(messages.userNotInMyChannel);
-            if(bot.playing == true) return msg.channel.send(messages.alreadyPlaying);
+            if(bot.playing == true) return msg.channel.send(messages.alreadyPlaying(msg));
             else{
                 play(vibeURLs);
             }
