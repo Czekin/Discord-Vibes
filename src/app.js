@@ -167,19 +167,16 @@ bot.on('message', async (msg) => {
             else{
                 msg.guild.me.voice.connection.dispatcher.destroy();
                 bot.playing = false;
+                bot.streamType = 'none';
 
                 switch(bot.streamType){
                     case 'play':
-                        bot.streamType = 'none';
                         return msg.channel.send('Stopped Lofi Mix.');
                     case 'radio':
-                        bot.streamType = 'none';
                         return msg.channel.send('Stopped Stream.');
                     case 'none':
-                        bot.streamType = 'none';
                         return msg.channel.send('Stopped Playing.');
                     default:
-                        bot.streamType = 'none';
                         return msg.channel.send('`[streamTypeSwitch]: Undefined error.` Please contact with developer.');
                 }
             }
