@@ -38,7 +38,7 @@ bot.on('message', async (msg) => {
 
     if(msg.mentions.has(bot.user)){
         let onlyMention = msg.content.trim().split(/ +/g);
-        if(onlyMention[0] === bot.user.tag && onlyMention[1] !== undefined) return;
+        if(onlyMention[0] !== `<@!${bot.user.id}>` || onlyMention[1] !== undefined) return;
 
         let embed = new Discord.MessageEmbed()
         .setAuthor(bot.user.username, bot.user.avatarURL())
