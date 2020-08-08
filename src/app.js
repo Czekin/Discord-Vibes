@@ -16,6 +16,7 @@ app.get('/', (req, res) => {
 const Discord = require('discord.js');
 const ytdl = require('ytdl-core');
 const messages = require('./utils/messages');
+const utils = require('./utils/utils');
 
 const vibeURLs = ['https://www.youtube.com/watch?v=25jHkLvTRtA', 'https://www.youtube.com/watch?v=7NOSDKb0HlU'];
 
@@ -34,6 +35,19 @@ bot.on('ready', () => {
 
 bot.on('message', async (msg) => {
     if(msg.author.bot || msg.channel.type == 'dm') return;
+
+    if(msg.mentions.has(bot.user)){
+        let onlyMention = msg.content.trim().split(/ +/g);
+        if(onlyMention[0] === bot.user.tag && onlyMention[1] !== undefined) return;
+
+        let embed = new Discord.MessageEmbed()
+        .setAuthor(bot.user.username, bot.user.avatarURL())
+        .setDescription(`Prefix ﹥ \`${bot.prefix}\`\nCommands ﹥ \`${bot.prefix}help\`\nSource ﹥ \`${bot.prefix}source\``)
+        .setFooter(utils.embedFooter, utils.embedFooterAvatarURL(bot))
+        .setColor(utils.embedColor);
+
+        msg.channel.send(embed);
+    }
 
     if(!msg.content.startsWith(bot.prefix)) return;
     const args = msg.content.slice(bot.prefix.length).trim().split(/ +/g);
@@ -96,13 +110,13 @@ bot.on('message', async (msg) => {
     if(command === 'help'){
         let embed = new Discord.MessageEmbed()
         .setAuthor(bot.user.username, bot.user.avatarURL())
-        .setDescription(`\`${bot.prefix}radio\` - Starting stream lofi vibes in voice channel.
-        \`${bot.prefix}play\` - Starting Discord Lofi Mix in voice channel.
-        \`${bot.prefix}stop\` - Stopping stream/Lofi Mix in voice channel.
-        \`${bot.prefix}quit\` - Stopping/Lofi Mix stream and leaving voice channel.
-        \`${bot.prefix}source\` - Links to music source.`)
-        .setFooter('Created by Czekin#0001 • @discordjs/opus', bot.users.cache.get('189083017686417410').avatarURL())
-        .setColor('#ffaa00');
+        .setDescription(`\`${bot.prefix}radio\` ﹥ Starting stream lofi vibes in voice channel.
+        \`${bot.prefix}play\` ﹥ Starting Discord Lofi Mix in voice channel.
+        \`${bot.prefix}stop\` ﹥ Stopping stream/Lofi Mix in voice channel.
+        \`${bot.prefix}quit\` ﹥ Stopping/Lofi Mix stream and leaving voice channel.
+        \`${bot.prefix}source\` ﹥ Links to music source.`)
+        .setFooter(utils.embedFooter, utils.embedFooterAvatarURL(bot))
+        .setColor(utils.embedColor);
 
         msg.channel.send(embed);
     }
@@ -112,8 +126,8 @@ bot.on('message', async (msg) => {
         .setTitle('**Source**')
         .setAuthor(bot.user.username, bot.user.avatarURL())
         .setDescription('[Radio Stream](https://www.youtube.com/watch?v=7NOSDKb0HlU)\n[Discord Lofi Mix](https://www.youtube.com/watch?v=25jHkLvTRtA)')
-        .setFooter('Created by Czekin#0001 • @discordjs/opus', bot.users.cache.get('189083017686417410').avatarURL())
-        .setColor('#ffaa00');
+        .setFooter(utils.embedFooter, utils.embedFooterAvatarURL(bot))
+        .setColor(utils.embedColor);
 
         msg.channel.send(embed);
     }
