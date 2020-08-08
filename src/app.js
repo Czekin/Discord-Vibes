@@ -1,3 +1,17 @@
+const express = require('express');
+const port = process.env.PORT || 1605;
+
+const app = express();
+app.listen(port, () => {
+    console.log('Server is running...');
+});
+app.get('/', (req, res) => {
+    res.send('Bot running i think...');
+});
+
+
+
+
 const Discord = require('discord.js');
 const opus = require('@discordjs/opus');
 const ms = require('ms');
